@@ -1,32 +1,11 @@
 import { Image } from "expo-image";
-import { Link } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import Pokemon from "./Pokemon";
 
 const pokemonList = require("@/assets/pokemon.json");
-
-interface PokemonData {
-  id: number;
-  name: string;
-  url: string;
-}
-
-function Pokemon({ pokemon }: { pokemon: PokemonData }) {
-  return (
-    <ThemedText style={styles.pokemon}>
-      <Link
-        href={{
-          pathname: "/pokemon/[pokemonId]",
-          params: { pokemonId: pokemon.id },
-        }}
-      >
-        {pokemon.name}
-      </Link>
-    </ThemedText>
-  );
-}
 
 export default function Pokedex() {
   return (
@@ -70,11 +49,6 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
     backgroundColor: "lightblue",
-  },
-  pokemon: {
-    marginVertical: 4,
-    marginHorizontal: 8,
-    fontSize: 18,
   },
   reactLogo: {
     height: 178,
