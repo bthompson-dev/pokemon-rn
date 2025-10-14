@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
+import { Link } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import { HelloWave } from "@/components/hello-wave";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 
@@ -14,7 +14,18 @@ interface PokemonData {
 }
 
 function Pokemon({ pokemon }: { pokemon: PokemonData }) {
-  return <ThemedText style={styles.pokemon}>{pokemon.name}</ThemedText>;
+  return (
+    <ThemedText style={styles.pokemon}>
+      <Link
+        href={{
+          pathname: "/pokemon/[pokemonId]",
+          params: { pokemonId: pokemon.id },
+        }}
+      >
+        {pokemon.name}
+      </Link>
+    </ThemedText>
+  );
 }
 
 export default function Pokedex() {
@@ -26,8 +37,7 @@ export default function Pokedex() {
       ListHeaderComponent={
         <View style={styles.headerContainer}>
           <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">Pokedex Welcome</ThemedText>
-            <HelloWave />
+            <ThemedText type="title">Pokedex</ThemedText>
           </ThemedView>
           <Image
             source={require("@/assets/images/partial-react-logo.png")}
