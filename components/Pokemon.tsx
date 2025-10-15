@@ -14,7 +14,11 @@ export default function Pokemon({ pokemon }: { pokemon: PokemonData }) {
       <Link
         href={{
           pathname: "/pokemon/[pokemonId]",
-          params: { pokemonId: pokemon.id },
+          params: {
+            pokemonId: pokemon.id,
+            name: pokemon.name,
+            url: pokemon.url,
+          },
         }}
       >
         {pokemon.name}
