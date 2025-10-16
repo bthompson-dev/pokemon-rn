@@ -13,7 +13,7 @@ interface pokeApiPokemon {
 }
 
 export default function Pokedex() {
-  let [pokemonList, setPokemonList] = useState<pokeApiPokemon[]>([]);
+  const [pokemonList, setPokemonList] = useState<pokeApiPokemon[]>([]);
 
   useEffect(() => {
     getPokemonList();
