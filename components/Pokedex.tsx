@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import Pokemon from "./Pokemon";
+import SearchBar from "./SearchBar";
 
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,7 @@ interface pokeApiPokemon {
 
 export default function Pokedex() {
   const [pokemonList, setPokemonList] = useState<pokeApiPokemon[]>([]);
+  const [searchQuery, onChangeSearchQuery] = useState<string>("");
 
   useEffect(() => {
     getPokemonList();
@@ -32,28 +34,33 @@ export default function Pokedex() {
   };
 
   return (
-    <FlatList
-      data={pokemonList}
-      renderItem={({ item, index }) => {
-        const pokemonWithId = { ...item, id: index };
+    <View>
+      
+      <SearchBar searchQuery={searchQuery} onChangeSearchQuery={onChangeSearchQuery}/>
 
-        return <Pokemon pokemon={pokemonWithId} />;
-      }}
-      keyExtractor={(item, index) => index.toString()}
-      ListHeaderComponent={
-        <View style={styles.headerContainer}>
-          <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">Pokedex</ThemedText>
-          </ThemedView>
-          <Image
-            source={require("@/assets/images/partial-react-logo.png")}
-            style={styles.reactLogo}
-          />
-        </View>
-      }
-      ListHeaderComponentStyle={styles.header}
-      contentContainerStyle={styles.pokemonContainer}
-    />
+      <FlatList
+        data={pokemonList}
+        renderItem={({ item, index }) => {
+          const pokemonWithId = { ...item, id: index };
+
+          return <Pokemon pokemon={pokemonWithId} />;
+        }}
+        keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={
+          <View style={styles.headerContainer}>
+            <ThemedView style={styles.titleContainer}>
+              <ThemedText type="title">Pokedex</ThemedText>
+            </ThemedView>
+            <Image
+              source={require("@/assets/images/partial-react-logo.png")}
+              style={styles.reactLogo}
+            />
+          </View>
+        }
+        ListHeaderComponentStyle={styles.header}
+        contentContainerStyle={styles.pokemonContainer}
+      />
+    </View>
   );
 }
 
