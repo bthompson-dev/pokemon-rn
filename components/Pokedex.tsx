@@ -5,14 +5,41 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import Pokemon from "./Pokemon";
 
-const pokemonList = require("@/assets/pokemon.json");
+import { useEffect, useState } from "react";
+
+interface pokeApiPokemon {
+  name: string;
+  url: string;
+}
 
 export default function Pokedex() {
+  let [pokemonList, setPokemonList] = useState<pokeApiPokemon[]>([]);
+
+  useEffect(() => {
+    getPokemonList();
+  }, []);
+
+  const getPokemonList = async () => {
+    try {
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon/?limit=1302"
+      ).then((res) => res.json());
+
+      setPokemonList(response.results);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
   return (
     <FlatList
       data={pokemonList}
-      renderItem={({ item }) => <Pokemon pokemon={item} />}
-      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item, index }) => {
+        const pokemonWithId = { ...item, id: index };
+
+        return <Pokemon pokemon={pokemonWithId} />;
+      }}
+      keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={
         <View style={styles.headerContainer}>
           <ThemedView style={styles.titleContainer}>
