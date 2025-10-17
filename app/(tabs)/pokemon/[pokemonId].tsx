@@ -11,7 +11,7 @@ export default function PokemonDetails() {
     <View style={styles.page}>
       <ThemedText style={styles.title}>Pokemon #{pokemonId}:</ThemedText>
       <ThemedText style={[styles.name, { color: nameColor }]}>
-        {name[0].toUpperCase() + name.slice(1)}
+        {name}
       </ThemedText>
     </View>
   );
