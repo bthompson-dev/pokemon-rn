@@ -1,8 +1,8 @@
 import PokemonList from "./PokemonList";
 import SearchBar from "./SearchBar";
 
-import { View } from "react-native";
 import { useEffect, useState } from "react";
+import { View } from "react-native";
 
 export interface pokeApiPokemon {
   name: string;
@@ -29,12 +29,17 @@ export default function Pokedex() {
     }
   };
 
+  const filteredPokemon = pokemonList.filter((pokemon) =>
+    pokemon.name.includes(searchQuery.toLowerCase())
+  );
+
   return (
     <View>
-      
-      <SearchBar searchQuery={searchQuery} onChangeSearchQuery={onChangeSearchQuery}/>
-      <PokemonList pokemonList={pokemonList} />
-      
+      <SearchBar
+        searchQuery={searchQuery}
+        onChangeSearchQuery={onChangeSearchQuery}
+      />
+      <PokemonList pokemonList={filteredPokemon} />
     </View>
   );
 }

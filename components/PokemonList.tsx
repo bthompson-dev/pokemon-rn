@@ -16,25 +16,34 @@ export default function PokemonList({
     <FlatList
       data={pokemonList}
       renderItem={({ item, index }) => {
-        const pokemonWithId = { ...item, id: index + 1 };
+        const capitalizedName = item.name[0].toUpperCase() + item.name.slice(1);
+        const pokemonWithId = {
+          name: capitalizedName,
+          url: item.url,
+          id: index + 1,
+        };
 
         return <Pokemon pokemon={pokemonWithId} />;
       }}
       keyExtractor={(item, index) => index.toString()}
-      ListHeaderComponent={
-        <View style={styles.headerContainer}>
-          <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">Pokedex</ThemedText>
-          </ThemedView>
-          <Image
-            source={require("@/assets/images/partial-react-logo.png")}
-            style={styles.reactLogo}
-          />
-        </View>
-      }
+      ListHeaderComponent={<ListHeaderComponent />}
       ListHeaderComponentStyle={styles.header}
       contentContainerStyle={styles.pokemonContainer}
     />
+  );
+}
+
+function ListHeaderComponent() {
+  return (
+    <View style={styles.headerContainer}>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title">Pokedex</ThemedText>
+      </ThemedView>
+      <Image
+        source={require("@/assets/images/partial-react-logo.png")}
+        style={styles.reactLogo}
+      />
+    </View>
   );
 }
 
