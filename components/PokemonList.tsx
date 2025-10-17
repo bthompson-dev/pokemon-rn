@@ -16,7 +16,7 @@ export default function PokemonList({
     <FlatList
       data={pokemonList}
       renderItem={({ item, index }) => {
-        const pokemonWithId = { ...item, id: index };
+        const pokemonWithId = { ...item, id: index + 1 };
 
         return <Pokemon pokemon={pokemonWithId} />;
       }}
